@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>琉球ゴールデンキングス 2026-27 カレンダー</title>
+
+<style>
+body {
+    font-family: -apple-system,BlinkMacSystemFont,sans-serif;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: #f5f7fa;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.google {
+    background: #4285F4;
+}
+
+.apple {
+    background: #333;
+}
+
+.download {
+    background: #16a34a;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #222;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+    color: gray;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🏀 琉球ゴールデンキングス 2026-27</h1>
+    <p>Googleカレンダー・Appleカレンダー対応</p>
+</header>
+
+<div class="card">
+
+<h2>カレンダー登録</h2>
+
+<a class="btn google"
+href="https://calendar.google.com/calendar/u/0/r?cid=webcal://uy819.github.io/yu810-bleague-calendar/kings.ics">
+📅 Googleカレンダーに追加
+</a>
+
+<a class="btn apple"
+href="webcal://uy819.github.io/yu810-bleague-calendar/kings.ics">
+🍎 Appleカレンダーに追加
+</a>
+
+<a class="btn download"
+href="kings.ics">
+📥 ICSファイル
+</a>
+
+</div>
+
+<div class="card">
+
+<h2>利用方法</h2>
+
+<ol>
+<li>Googleカレンダーに追加をクリック</li>
+<li>「追加」を押す</li>
+<li>以後は日程変更が自動反映</li>
+</ol>
+
+</div>
+
+<div class="card">
+
+<h2>試合日程</h2>
+
+<table id="schedule">
+<thead>
+<tr>
+<th>日付</th>
+<th>HOME</th>
+<th>AWAY</th>
+<th>会場</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+</div>
+
+<footer>
+Powered by GitHub Pages<br>
+Data Source: B.LEAGUE
+</footer>
+
+<script>
+
+fetch('kings_schedule.csv')
+.then(response => response.text())
+.then(text => {
+
+    const rows = text.trim().split('\n');
+
+    const tbody = document.querySelector('#schedule tbody');
+
+    rows.slice(1).forEach(row => {
+
+        const cols = row.split(',');
+
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+            <td>${cols[0]}</td>
+            <td>${cols[2]}</td>
+            <td>${cols[3]}</td>
+            <td>${cols[4]}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+});
+
+</script>
+
+</body>
+</html>
