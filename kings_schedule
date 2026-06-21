@@ -1,0 +1,31 @@
+import requests
+import pandas as pd
+
+URL = "https://www.bleague.jp/files/user/_/opening2026-27/js/schedule-premier.json"
+
+data = requests.get(URL).json()
+
+df = pd.DataFrame(data)
+
+kings = df[
+    (df["home"].str.contains("琉球")) |
+    (df["away"].str.contains("琉球"))
+]
+
+kings = kings[
+    [
+        "date",
+        "dayOfWeek",
+        "home",
+        "away",
+        "venue"
+    ]
+]
+
+kings.to_csv(
+    "kings_schedule.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
+
+print(f"{len(kings)}試合")
